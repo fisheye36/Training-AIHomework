@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  ping-service:
+    build: ping-service
+    hostname: PingService
+    ports:
+      - "8080:8080"
+  receiver-service:
+    build: receiver-service
+    hostname: ReceiverService
+    ports:
+      - "8081:8080"

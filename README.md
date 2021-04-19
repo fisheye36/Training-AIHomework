@@ -25,13 +25,13 @@ pip install -r requirements.txt
 gunicorn service:app
 ```
 
-Then navigate to http://localhost:8000 to see Swagger API documentation.
+Then navigate to http://localhost:8080 to see Swagger API documentation.
 
 To use Docker:
 
 ```shell
 docker build -t ping-service .
-docker run -dp 8000:8000 ping-service
+docker run -dp 8080:8080 ping-service
 ```
 
 Then navigate to the same URL.
@@ -55,6 +55,16 @@ Then, run the tests using `pytest`:
 ```shell
 pytest
 ```
+
+## Entire application
+
+To start all microservices, use Docker Compose:
+
+```shell
+docker-compose -d up
+```
+
+Then navigate to http://localhost:8080 to access PingService, or http://localhost:8081 to access ReceiverService.
 
 # Room for improvements
 

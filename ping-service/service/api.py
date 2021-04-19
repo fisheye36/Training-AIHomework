@@ -1,3 +1,5 @@
+from contextlib import suppress
+
 import requests
 from flask import abort, Blueprint
 from flask_restplus import Api, fields, Resource
@@ -24,9 +26,14 @@ class PingResource(Resource):
     @api_v1.expect(ping)
     def post(self):
         url = api_v1.payload['url']
+
         try:
             response = requests.get(url, timeout=app.config['REQUEST_TIMEOUT'])
         except requests.RequestException:
             abort(400, f"Cannot access URL at '{url}'")
-        else:
-            return response.text
+
+        if response.headers['Content-Type'] == 'application/json':
+            with suppress(ValueError):
+                return response.json()
+
+        return response.text
